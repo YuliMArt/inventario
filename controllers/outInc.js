@@ -63,7 +63,27 @@ const addSalida = async (req = request, res = response) => {
   }
   res.json({ ...resu });
 };
+const updStock = async (req = request, res = response) => {
+  const { id, id_cat, id_marc, id_pro, status } = req.body;
+  let resul = { ok: true, msg: "Actialización exitosa" };
+
+  const exist = await Stock.findOne({
+    where: {
+      [Op.and]: [{ id_cat }, { id_marc }, { id_pro }, { status }],
+      id: { [Op.ne]: id },
+    },
+  });
+
+  if (exist) {
+    resul = { ok: false, msg: "Ya existe un registro con el tipo de datos" };
+  } else {
+    await Stock.update({ ...req.body }, { where: { id } });
+  }
+
+  res.json({ ...resul });
+};
 module.exports = {
   addIncoming,
   addSalida,
+  updStock,
 };

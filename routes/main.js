@@ -11,6 +11,7 @@ const {
   getProductos,
   addSalida,
   deleteType,
+  updStock,
 } = require("../controllers");
 
 // ! ruta ** /api/main
@@ -19,6 +20,7 @@ const router = Router();
 router.get("/types", getGroupType);
 router.put("/history", getMovs);
 router.put("/productos", getProductos);
+router.put("/stock", updStock);
 router.put(
   "/types/:type",
   [
