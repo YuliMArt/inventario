@@ -38,6 +38,8 @@ const addType = async (req = request, res = response) => {
 const getType = async (req = request, res = response) => {
   const { type } = req.params;
   const { limit = 15, offset = 0, find, order = "ASC", orBy = "id" } = req.body;
+  let paginate = `LIMIT ${limit} OFFSET ${offset}`;
+  if (limit == "Todos") paginate = "";
   let query = "";
   let filtro = false;
   let items = [];
@@ -52,7 +54,7 @@ const getType = async (req = request, res = response) => {
     query += `AND ty.nombre LIKE '%${find}%'`;
   }
   items = await db.query(
-    `SELECT ty.*,  COUNT(pr.id) as existencia  FROM tipos ty LEFT JOIN stocks pr ON  ${query} GROUP BY nombre ORDER BY ${orBy} ${order}  LIMIT ${limit} OFFSET ${offset} `,
+    `SELECT ty.*,  COUNT(pr.id) as existencia  FROM tipos ty LEFT JOIN stocks pr ON  ${query} GROUP BY nombre ORDER BY ${orBy} ${order} ${paginate} `,
     { type: QueryTypes.SELECT }
   );
   total = await Tipos.count({ where: { type } });
