@@ -5,7 +5,8 @@ const { Op } = require("sequelize");
 
 const addIncoming = async (req = request, res = response) => {
   const datos = req.body;
-  const { id_pro, id_cat, id_marc, status, fecha, tecnico, cantidad } = datos;
+  const { id_pro, id_cat, id_marc, status, fecha, tecnico, cantidad, nota } =
+    datos;
   const [data, created] = await Stock.findOrCreate({
     where: { [Op.and]: [{ id_cat }, { id_pro }, { id_marc }, { status }] },
     defaults: { ...datos },
@@ -24,13 +25,14 @@ const addIncoming = async (req = request, res = response) => {
     tecnico,
     fecha,
     tipo: "ENTRADA",
+    nota,
   });
   await nHis.save();
   res.json({ ok: true, msg: "Operación exitosa" });
 };
 const addSalida = async (req = request, res = response) => {
   const datos = req.body;
-  const { id_pro, id_cat, id_marc, status, fecha, tecnico, cantidad } = datos;
+  const { id_pro, id_cat, id_marc, status, fecha, tecnico, cantidad,nota } = datos;
   const exis = await Stock.findOne({
     where: { [Op.and]: [{ id_cat }, { id_pro }, { id_marc }, { status }] },
   });
@@ -51,6 +53,7 @@ const addSalida = async (req = request, res = response) => {
         tecnico,
         fecha,
         tipo: "SALIDA",
+        nota
       });
       await nHis.save();
       resu = { ok: true, msg: "Operación exitosa" };

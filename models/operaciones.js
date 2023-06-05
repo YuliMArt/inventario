@@ -21,5 +21,8 @@ const Operacion = db.define("operaciones", {
   fecha: {
     type: DataTypes.STRING,
   },
+  nota: {
+    type: DataTypes.STRING,
+  },
 });
 module.exports = Operacion;

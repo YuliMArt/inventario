@@ -11,7 +11,7 @@ const getMovs = async (req = request, res = response) => {
   let paginate = `LIMIT ${limit} OFFSET ${offset}`;
   if (find) {
     filtro = true;
-    query = `WHERE op.tipo LIKE '%${find}%' OR op.tecnico LIKE '%${find}%' OR op.fecha LIKE '%${find}%' OR st.status LIKE '%${find}%' OR mr.nombre LIKE '%${find}%' OR ct.nombre LIKE '%${find}%' OR pr.nombre LIKE '%${find}%'`;
+    query = `WHERE op.tipo LIKE '%${find}%' OR op.tecnico LIKE '%${find}%' OR op.fecha LIKE '%${find}%' OR op.nota LIKE '%${find}%'  OR st.status LIKE '%${find}%' OR mr.nombre LIKE '%${find}%' OR ct.nombre LIKE '%${find}%' OR pr.nombre LIKE '%${find}%'`;
   }
   if (limit == "Todos") paginate = "";
 
