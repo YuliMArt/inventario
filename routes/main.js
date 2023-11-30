@@ -71,7 +71,7 @@ router.delete(
   "/:type/:id",
   [
     check("type").custom((o) =>
-      coleccionesPermitidas(o, ["marcas", "productos", "categorias"])
+      coleccionesPermitidas(o, ["marcas", "productos", "categorias", "stock"])
     ),
 
     validarCampos,
